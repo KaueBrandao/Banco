@@ -9,48 +9,64 @@ public class AgenciaBancaria {
     public static void main(String[] args) {
         contasBancarias = new ArrayList<Conta>();
         int cont = 1;
+        String Senha = "admin";
 
-        do{
-            System.out.println("1 - Criar Conta");
-            System.out.println("2 - Depositar");
-            System.out.println("3 - Sacar");
-            System.out.println("4 - Trasnferir");
-            System.out.println("5 - Listar");
-            System.out.println("6 - Imprimir extrato");
-            System.out.println("7 - Sair");
+        while (true) {
+            String senha;
+            System.out.println("");
+            System.out.print("Senha: ");
+            senha = s.nextLine();
+            if (senha.equals(Senha)) {
+                
+            
+            do{
+                System.out.println("1 - Criar Conta");
+                System.out.println("2 - Depositar");
+                System.out.println("3 - Sacar");
+                System.out.println("4 - Trasnferir");
+                System.out.println("5 - Listar");
+                System.out.println("6 - Imprimir extrato");
+                System.out.println("7 - Sair");
+    
+                System.out.print("Opcao: ");
+                cont = s.nextInt();;
+    
+                switch (cont) {
+                    case 1:
+                        criarConta();
+                        break;
+    
+                    case 2:
+                        depositar();
+                        break;
+    
+                    case 3:
+                        sacar();
+                        break;
+    
+                    case 4:
+                        transferir();
+                        break;
+    
+                    case 5:
+                        listarContas();
+                        break;
+                    case 6:
+                        Imprimiextrato();
+                        break;
+    
+                    default:
+                        System.out.println("Opção inválida!");
+                        break;
+                }
+            }while(cont!= 7);
+        }else{
+            continue;
+        }
 
-            System.out.print("Opcao: ");
-            cont = s.nextInt();;
+        }
 
-            switch (cont) {
-                case 1:
-                    criarConta();
-                    break;
-
-                case 2:
-                    depositar();
-                    break;
-
-                case 3:
-                    sacar();
-                    break;
-
-                case 4:
-                    transferir();
-                    break;
-
-                case 5:
-                    listarContas();
-                    break;
-                case 6:
-                    Imprimiextrato();
-                    break;
-
-                default:
-                    System.out.println("Opção inválida!");
-                    break;
-            }
-        }while(cont!= 7);
+        
     }
 
     public static void criarConta() {

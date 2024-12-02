@@ -75,7 +75,7 @@ public class Conta {
     public void transferencia(Conta contaParaDeposito, Double valor) {
         if(valor > 0 && this.getSaldo() >= valor) {
             setSaldo(getSaldo() - valor);
-            contaParaDeposito.saldo = contaParaDeposito.getSaldo() + valor;
+            contaParaDeposito.transferenciaReceber(valor);
             System.out.println("Transferência realizada com sucesso!");
 
             transacoes.add(new Transacao("Transferência", valor));
@@ -83,6 +83,11 @@ public class Conta {
             System.out.println("Não foi possível realizar a tranferência");
         }
 
+    }
+
+    public void transferenciaReceber(Double valor){
+        this.saldo = this.saldo+valor;
+        transacoes.add(new Transacao("Transferência recebida", valor));
     }
 
     public void imprimirExtrato() {
