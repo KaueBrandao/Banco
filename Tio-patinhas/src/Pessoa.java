@@ -50,8 +50,7 @@ public class Pessoa {
     public String toString() {
         return  "\nName: " + this.getName() +
                 "\nCPF: " + this.getCpf() +
-                "\nEmail: " + this.getEmail() +
-                "\nData de criação da conta: " + Utils.dateToString(this.getdatacriacaoconta());
+                "\nEmail: " + this.getEmail();
     }
 
 
