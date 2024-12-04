@@ -70,7 +70,7 @@ public class AgenciaBancaria {
     }
 
     public static void criarConta() {
-        String nome, cpf,email ;
+        String nome, cpf,email, agencia, senha ;
 
         System.out.print("\nNome: ");
         nome = s.nextLine();
@@ -82,9 +82,15 @@ public class AgenciaBancaria {
         System.out.print("\nEmail: ");
         email = s.nextLine();
 
+        System.out.print("\nNumero da Agencia: ");
+        agencia = s.nextLine();
+
+        System.out.print("\nSenha: ");
+        senha = s.nextLine();
+
         Pessoa cliente = new Pessoa(nome, cpf, email);
 
-        Conta conta = new Conta(cliente);
+        Conta conta = new Conta(cliente, agencia, senha);
 
         contasBancarias.add(conta);
         System.out.println("CONTA CRIADA COM SUCESSO!");
@@ -102,16 +108,38 @@ public class AgenciaBancaria {
         return conta;
     }
 
+    public static Boolean autenticar(int numeroConta){
+        Conta conta = encontrarConta(numeroConta);
+        String agencia, senha;
+
+        System.out.print("Numero da Agencia: ");
+        agencia = s.nextLine();agencia = s.nextLine();
+        System.out.print("Senha: ");
+        senha = s.nextLine();
+        
+        if(senha.equals(conta.getSenha()) && agencia.equals(conta.getAgencia())){
+            return true;
+        }
+        else{
+            System.out.print("DADOS INCORRETOS!");
+            return false;
+        }
+    }
+
     public static void depositar() {
         System.out.print("Número da conta: ");
         int numeroConta = s.nextInt();
         Conta conta = encontrarConta(numeroConta);
 
         if(conta != null) {
-            System.out.print("valor do deposito: ");
-            Double valorDeposito = s.nextDouble();
+            if(autenticar(numeroConta)){
+                System.out.print("valor do deposito: ");
+                Double valorDeposito = s.nextDouble();
+                conta.depositar(valorDeposito);
+            }
+            
 
-            conta.depositar(valorDeposito);
+            
         }else {
             System.out.println("CONTA INEXISTENTE!");
         }
@@ -124,11 +152,14 @@ public class AgenciaBancaria {
         Conta conta = encontrarConta(numeroConta);
 
         if(conta != null) {
-            System.out.print("Valor do Saque: ");
-            Double valorSaque = s.nextDouble();
-
-            conta.sacar(valorSaque);
-            System.out.println("SAQUE REALIZADO COM SUCESSO!");
+            if(autenticar(numeroConta)){
+                System.out.print("Valor do Saque: ");
+                Double valorSaque = s.nextDouble();
+                conta.sacar(valorSaque);
+                System.out.println("SAQUE REALIZADO COM SUCESSO!");
+            }
+    
+            
         }else {
             System.out.println("CONTA INEXISTENTE!");
         }
@@ -141,20 +172,23 @@ public class AgenciaBancaria {
         Conta contaRemetente = encontrarConta(numeroContaRemetente);
 
         if(contaRemetente != null) {
-            System.out.print("Número conta do Destinatário: ");
-            int numeroContaDestinatario = s.nextInt();
+            if (autenticar(numeroContaRemetente)) {
+                System.out.print("Número conta do Destinatário: ");
+                int numeroContaDestinatario = s.nextInt();
 
-            Conta contaDestinatario = encontrarConta(numeroContaDestinatario);
+                Conta contaDestinatario = encontrarConta(numeroContaDestinatario);
 
-            if(contaDestinatario != null) {
+                 if(contaDestinatario != null) {
                 System.out.print("Valor da transferência: ");
-                Double valor = s.nextDouble();
+                    Double valor = s.nextDouble();
 
-                contaRemetente.transferencia(contaDestinatario, valor);
+                    contaRemetente.transferencia(contaDestinatario, valor);
 
             }else {
                 System.out.println("CONTA DO DEPOSITO INEXISTENTE");
             }
+            }
+            
 
         }else {
             System.out.println("CONTA DA TRANSFERENCIA INEXISTENTE");
@@ -178,9 +212,13 @@ public class AgenciaBancaria {
         Conta conta = encontrarConta(numeroConta);
 
         if (conta != null) {
-            conta.imprimirExtrato();
+            if(autenticar(numeroConta)){
+               conta.imprimirExtrato(); 
+            }
         } else {
             System.out.println("CONTA INEXISTENTE");
         }
     }
 }
+
+

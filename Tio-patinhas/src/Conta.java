@@ -8,13 +8,16 @@ public class Conta {
     private int numeroConta;
     private Pessoa pessoa;
     private Double saldo = 0.0;
-
+    private String agencia;
+    private String senha;
     private List<Transacao> transacoes = new ArrayList<>();
 
 
-    public Conta(Pessoa pessoa) {
+    public Conta(Pessoa pessoa, String agencia, String senha) {
         this.numeroConta = Conta.accountCounter;
         this.pessoa = pessoa;
+        this.agencia = agencia;
+        this.senha = senha;
         this.updateSaldo();
         Conta.accountCounter += 1;
     }
@@ -35,7 +38,18 @@ public class Conta {
     public void setSaldo(Double saldo) {
         this.saldo = saldo;
     }
-
+    public void setAgencia(String agencia){
+        this.agencia = agencia;
+    }
+    public String getAgencia(){
+        return this.agencia;
+    }
+    public void setSenha(String senha){
+        this.senha = senha;
+    }
+    public String getSenha(){
+        return this.senha;
+    }
     private void updateSaldo() {
         this.saldo = this.getSaldo();
     }

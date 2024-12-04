@@ -9,6 +9,7 @@ public class Pessoa {
     private String cpf;
     private String email;
     private Date datacriacaoconta;
+  
 
     public Pessoa() { }
 
@@ -17,7 +18,6 @@ public class Pessoa {
         this.name = name;
         this.cpf = cpf;
         this.email = email;
-        this.datacriacaoconta = new Date();
         Pessoa.counter += 1;
     }
 
@@ -43,9 +43,7 @@ public class Pessoa {
     public void setEmail(String email) {
         this.email = email;
     }
-    public Date getdatacriacaoconta() {
-        return this.datacriacaoconta;
-    }
+    
 
     public String toString() {
         return  "\nName: " + this.getName() +
